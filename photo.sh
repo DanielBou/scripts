@@ -10,22 +10,18 @@ else
 exit
 fi
 
-for i in $(find $dir -iname "*.jpg" -o")
+for i in $(find $dir -iname "*.jpg" )
 do
 
         #Check if the file actualy exists $dir
         if [ -f $i ]; then
-                timestamp="$(identify -format '%[exif:DateTimeOriginal]' $i)"
-		timestamp=${timestamp%T*}
+             creationdate=$(ls -l --time-style='+%d-%m-%y' "$i" | awk '{print $6}')
+	     weeknum=$(date -d "$creationdate" +%V)
 
-	year=$(echo $timestamp | cut -c 1-4)
-	month=$(echo $timestamp | cut -c 6-7)
-	day=$(echo $timestamp | cut -c 9-10)
+	destfile=$destdir/$weeknum/$(basename $i)
 
-	destfile=$destdir$month/($basename $i)
-
-	if [ ! -d $destdir$month ]; then
-		mkdir "$destdir$m" -p
+	if [ ! -d $destdir/$weeknum ]; then
+		mkdir "$destdir/$weeknum" -p
 	fi
 
 	if [ -f $destfile ]; then
