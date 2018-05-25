@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#This script is moslty copied from https://davehope.co.uk/Blog/sorting-your-photos-with-bash/
+#All credit goes to him, I just changed some of the variable names and the way the week is found.
+
+
 dir=/home/azureuser/photos
 destdir=/home/azureuser/photos/sorted
 
